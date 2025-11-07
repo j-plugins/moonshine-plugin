@@ -32,13 +32,15 @@
                 implementationClass="com.github.xepozz.moonshine.completion.LayoutCompletionContributor"/>
 
         <directoryProjectGenerator
-                implementation="com.github.xepozz.moonshine.scaffolder.project.MoonshineProjectGenerator" />
+                implementation="com.github.xepozz.moonshine.scaffolder.project.MoonshineProjectGenerator"/>
         <moduleBuilder
-                builderClass="com.github.xepozz.moonshine.scaffolder.project.MoonshineModuleBuilder" />
+                builderClass="com.github.xepozz.moonshine.scaffolder.project.MoonshineModuleBuilder"/>
 
         <notificationGroup id="MoonShine Debug"
                            displayType="BALLOON"
                            key="notification.group.debug.name"/>
+        <backgroundPostStartupActivity
+                implementation="com.github.xepozz.moonshine.listeners.DumpLaravelData"/>
     </extensions>
     <actions>
         <group
