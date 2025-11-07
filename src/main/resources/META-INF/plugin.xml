@@ -26,6 +26,10 @@
             <language>PHP</language>
             <className>com.github.xepozz.moonshine.intentions.NewResourceIntention</className>
         </intentionAction>
+        <completion.contributor
+                language="PHP"
+                order="first"
+                implementationClass="com.github.xepozz.moonshine.completion.LayoutCompletionContributor"/>
 
         <directoryProjectGenerator
                 implementation="com.github.xepozz.moonshine.scaffolder.project.MoonshineProjectGenerator" />
