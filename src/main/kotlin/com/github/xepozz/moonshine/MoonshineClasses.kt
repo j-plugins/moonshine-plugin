@@ -13,4 +13,6 @@ object MoonshineClasses {
     const val INDEX_PAGE = "\\MoonShine\\Laravel\\Pages\\Crud\\IndexPage"
     const val FORM_PAGE = "\\MoonShine\\Laravel\\Pages\\Crud\\FormPage"
     const val DETAIL_PAGE = "\\MoonShine\\Laravel\\Pages\\Crud\\DetailPage"
+
+    const val CRUD_RESOURCE_CONTRACT = "\\MoonShine\\Contracts\\Core\\CrudResourceContract"
 }

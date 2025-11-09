@@ -30,10 +30,10 @@
                 language="PHP"
                 order="first"
                 implementationClass="com.github.xepozz.moonshine.completion.LayoutCompletionContributor"/>
-        <completion.contributor
+        <psi.referenceContributor
                 language="PHP"
                 order="first"
-                implementationClass="com.github.xepozz.moonshine.completion.RouteCompletionContributor"/>
+                implementation="com.github.xepozz.moonshine.references.RouteReferenceContributor"/>
 
         <directoryProjectGenerator
                 implementation="com.github.xepozz.moonshine.scaffolder.project.MoonshineProjectGenerator"/>
