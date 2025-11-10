@@ -3,9 +3,9 @@ package com.github.xepozz.moonshine.service
 import com.intellij.execution.ExecutionException
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.process.KillableColoredProcessHandler
-import com.intellij.execution.process.ProcessAdapter
 import com.intellij.execution.process.ProcessEvent
 import com.intellij.execution.process.ProcessHandler
+import com.intellij.execution.process.ProcessListener
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.text.StringUtil
@@ -21,7 +21,7 @@ object PhpCommandExecutor {
         file: String,
         phpCommandArguments: Collection<String> = emptyList(),
         commandArguments: Collection<String> = emptyList(),
-        processListener: ProcessAdapter,
+        processListener: ProcessListener,
     ) {
         val arguments = buildList {
             addAll(phpCommandArguments)
@@ -32,7 +32,7 @@ object PhpCommandExecutor {
         executeCommand(project, arguments, processListener)
     }
 
-    private suspend fun executeCommand(project: Project, arguments: Collection<String>, processListener: ProcessAdapter) =
+    private suspend fun executeCommand(project: Project, arguments: Collection<String>, processListener: ProcessListener) =
         suspendCoroutine<Int> { continuation ->
             val interpretersManager = PhpInterpretersManagerImpl.getInstance(project)
             val interpreter = PhpProjectConfigurationFacade.getInstance(project).interpreter
@@ -79,7 +79,7 @@ object PhpCommandExecutor {
             }
 
             processHandler.addProcessListener(processListener)
-            processHandler.addProcessListener(object : ProcessAdapter() {
+            processHandler.addProcessListener(object : ProcessListener {
                 override fun processTerminated(event: ProcessEvent) {
                     continuation.resumeWith(Result.success(event.exitCode))
                 }
