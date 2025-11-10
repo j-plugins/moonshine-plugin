@@ -36,6 +36,7 @@ class LayoutCompletionContributor : CompletionContributor() {
 
                     if (!hasClassStringParametrizedTypes(field)) return
 
+                    println("stopping completion")
                     results.stopHere()
 
                     getCachedSubclasses(field)
