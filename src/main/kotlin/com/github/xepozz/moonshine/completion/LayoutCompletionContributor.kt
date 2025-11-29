@@ -1,5 +1,6 @@
 package com.github.xepozz.moonshine.completion
 
+import com.github.xepozz.moonshine.common.config.isPluginEnabled
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
@@ -30,6 +31,9 @@ class LayoutCompletionContributor : CompletionContributor() {
                     context: ProcessingContext,
                     results: CompletionResultSet
                 ) {
+                    val project = parameters.position.project
+                    if (!isPluginEnabled(project)) return
+
                     val element = parameters.position
                     val constantReference = element.parent as? ConstantReference ?: return
                     val field = constantReference.parent as? FieldImpl ?: return

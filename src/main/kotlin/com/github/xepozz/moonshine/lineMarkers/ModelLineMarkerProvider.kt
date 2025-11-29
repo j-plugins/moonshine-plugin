@@ -2,6 +2,7 @@ package com.github.xepozz.moonshine.lineMarkers
 
 import com.github.xepozz.moonshine.MoonshineClasses
 import com.github.xepozz.moonshine.MoonshineIcons
+import com.github.xepozz.moonshine.common.config.isPluginEnabled
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
@@ -16,10 +17,12 @@ import com.jetbrains.php.lang.psi.elements.PhpClass
 
 class ModelLineMarkerProvider : RelatedItemLineMarkerProvider() {
     override fun getLineMarkerInfo(element: PsiElement): RelatedItemLineMarkerInfo<*>? {
+        val project = element.project
+        if (!isPluginEnabled(project)) return null
+
         val element = element as? PhpClass ?: return null
         val nameIdentifier = element.nameIdentifier ?: return null
 
-        val project = element.project
         val phpIndex = PhpIndex.getInstance(project)
 
         val modelClass = phpIndex.getClassesByFQN(MoonshineClasses.MODEL).firstOrNull() ?: return null

@@ -1,6 +1,7 @@
 package com.github.xepozz.moonshine.references
 
 import com.github.xepozz.moonshine.MoonshineClasses
+import com.github.xepozz.moonshine.common.config.isPluginEnabled
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
@@ -30,6 +31,9 @@ class RouteReferenceContributor : PsiReferenceContributor() {
                     element: PsiElement,
                     context: ProcessingContext
                 ): Array<out PsiReference> {
+                    val project = element.project
+                    if (!isPluginEnabled(project)) return emptyArray()
+
                     val element = element as? StringLiteralExpression ?: return PsiReference.EMPTY_ARRAY
                     val methodReference = element.parent.parent as? MethodReference ?: return PsiReference.EMPTY_ARRAY
 

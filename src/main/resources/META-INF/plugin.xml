@@ -40,12 +40,21 @@
         <moduleBuilder
                 builderClass="com.github.xepozz.moonshine.scaffolder.project.MoonshineModuleBuilder"/>
 
-        <notificationGroup id="MoonShine Debug"
-                           displayType="BALLOON"
-                           key="notification.group.debug.name"/>
+        <notificationGroup
+                id="MoonShine Debug"
+                displayType="BALLOON"
+                key="notification.group.debug.name"/>
         <backgroundPostStartupActivity
                 implementation="com.github.xepozz.moonshine.listeners.DumpLaravelData"/>
+        <backgroundPostStartupActivity
+                implementation="com.github.xepozz.moonshine.listeners.ActivationListener"/>
     </extensions>
+
+    <extensions defaultExtensionNs="com.jetbrains.php">
+        <composerConfigClient
+                implementation="com.github.xepozz.moonshine.common.config.MoonshineComposerConfig"/>
+    </extensions>
+
     <actions>
         <group
                 id="MoonShine New"

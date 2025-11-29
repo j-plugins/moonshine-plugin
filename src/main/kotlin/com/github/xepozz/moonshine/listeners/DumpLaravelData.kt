@@ -1,5 +1,6 @@
 package com.github.xepozz.moonshine.listeners
 
+import com.github.xepozz.moonshine.common.config.isPluginEnabled
 import com.github.xepozz.moonshine.repository.RoutesRepository
 import com.github.xepozz.moonshine.repository.toRouteCollection
 import com.github.xepozz.moonshine.service.ArtisanDumpService
@@ -8,6 +9,8 @@ import com.intellij.openapi.startup.ProjectActivity
 
 class DumpLaravelData : ProjectActivity {
     override suspend fun execute(project: Project) {
+        if (!isPluginEnabled(project)) return
+
         val artisan = project.getService(ArtisanDumpService::class.java)
         val result = artisan.dump("route:list", listOf("--json"))
 
