@@ -8,6 +8,9 @@ import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.openapi.util.NotNullLazyValue
 import com.intellij.psi.PsiElement
+import com.intellij.psi.util.CachedValueProvider
+import com.intellij.psi.util.CachedValuesManager
+import com.intellij.psi.util.PsiModificationTracker
 import com.jetbrains.php.PhpClassHierarchyUtils
 import com.jetbrains.php.PhpIndex
 import com.jetbrains.php.lang.psi.elements.ClassConstantReference
@@ -20,16 +23,12 @@ class ResourceLineMarkerProvider : RelatedItemLineMarkerProvider() {
         if (!isPluginEnabled(project)) return null
 
 
-        val element = element as? PhpClass ?: return null
-        val nameIdentifier = element.nameIdentifier ?: return null
-        val modelField = element.findFieldByName("model", false) ?: return null
+        val phpClass = element as? PhpClass ?: return null
+        val nameIdentifier = phpClass.nameIdentifier ?: return null
+        val modelField = phpClass.findFieldByName("model", false) ?: return null
         val modelClassReference = modelField.defaultValue as? ClassConstantReference ?: return null
 
-        val phpIndex = PhpIndex.getInstance(project)
-
-        val resourceClass = phpIndex.getClassesByFQN(MoonshineClasses.MODEL_RESOURCE).firstOrNull() ?: return null
-
-        if (!PhpClassHierarchyUtils.isSuperClass(resourceClass, element, true)) return null
+        if (!isResourceClass(phpClass)) return null
 
         // todo: replace with more suitable icon
         return NavigationGutterIconBuilder.create(MoonshineIcons.MOONSHINE)
@@ -38,6 +37,23 @@ class ResourceLineMarkerProvider : RelatedItemLineMarkerProvider() {
             })
             .setTooltipText("Open model")
             .createLineMarkerInfo(nameIdentifier)
+    }
 
+    fun isResourceClass(phpClass: PhpClass): Boolean {
+        return CachedValuesManager.getCachedValue(phpClass) {
+            val phpIndex = PhpIndex.getInstance(phpClass.project)
+
+            val modelClass = phpIndex.getClassesByFQN(MoonshineClasses.MODEL_RESOURCE).firstOrNull()
+
+            val result = when {
+                modelClass == null -> false
+                else -> PhpClassHierarchyUtils.isSuperClass(modelClass, phpClass, true)
+            }
+
+            CachedValueProvider.Result.create(
+                result,
+                PsiModificationTracker.MODIFICATION_COUNT,
+            )
+        }
     }
 }

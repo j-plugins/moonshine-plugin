@@ -8,6 +8,9 @@ import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.openapi.util.NotNullLazyValue
 import com.intellij.psi.PsiElement
+import com.intellij.psi.util.CachedValueProvider
+import com.intellij.psi.util.CachedValuesManager
+import com.intellij.psi.util.PsiModificationTracker
 import com.intellij.psi.util.PsiTreeUtil
 import com.jetbrains.php.PhpClassHierarchyUtils
 import com.jetbrains.php.PhpIndex
@@ -20,26 +23,45 @@ class ModelLineMarkerProvider : RelatedItemLineMarkerProvider() {
         val project = element.project
         if (!isPluginEnabled(project)) return null
 
-        val element = element as? PhpClass ?: return null
-        val nameIdentifier = element.nameIdentifier ?: return null
+        val phpClass = element as? PhpClass ?: return null
+        val nameIdentifier = phpClass.nameIdentifier ?: return null
 
-        val phpIndex = PhpIndex.getInstance(project)
-
-        val modelClass = phpIndex.getClassesByFQN(MoonshineClasses.MODEL).firstOrNull() ?: return null
-
-        if (!PhpClassHierarchyUtils.isSuperClass(modelClass, element, true)) return null
+        if (!isModelClass(phpClass)) return null
 
         // todo: replace with more suitable icon
         return NavigationGutterIconBuilder.create(MoonshineIcons.MOONSHINE)
             .setTargets(NotNullLazyValue.createValue {
-                findResourceClasses(phpIndex, element)
-                    .flatMap {
-                        listOf(it, *findPagesInResource(it).toTypedArray())
-                    }
+                CachedValuesManager.getCachedValue(phpClass) {
+                    val phpIndex = PhpIndex.getInstance(project)
+                    CachedValueProvider.Result.create(
+                        findResourceClasses(phpIndex, phpClass)
+                            .flatMap {
+                                listOf(it, *findPagesInResource(it).toTypedArray())
+                            },
+                        PsiModificationTracker.MODIFICATION_COUNT,
+                    )
+                }
             })
             .setTooltipText("Open MoonShine pages")
             .createLineMarkerInfo(nameIdentifier)
+    }
 
+    fun isModelClass(phpClass: PhpClass): Boolean {
+        return CachedValuesManager.getCachedValue(phpClass) {
+            val phpIndex = PhpIndex.getInstance(phpClass.project)
+
+            val modelClass = phpIndex.getClassesByFQN(MoonshineClasses.MODEL).firstOrNull()
+
+            val result = when {
+                modelClass == null -> false
+                else -> PhpClassHierarchyUtils.isSuperClass(modelClass, phpClass, true)
+            }
+
+            CachedValueProvider.Result.create(
+                result,
+                PsiModificationTracker.MODIFICATION_COUNT,
+            )
+        }
     }
 
     private fun findResourceClasses(
