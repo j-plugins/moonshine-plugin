@@ -24,6 +24,8 @@
                 implementationClass="com.github.xepozz.moonshine.lineMarkers.ModelLineMarkerProvider"/>
         <colorProvider
                 implementation="com.github.xepozz.moonshine.common.color.OklchColorProvider"/>
+        <colorProvider
+                implementation="com.github.xepozz.moonshine.common.color.PaletteColorProvider"/>
         <intentionAction>
             <language>PHP</language>
             <className>com.github.xepozz.moonshine.intentions.NewResourceIntention</className>
