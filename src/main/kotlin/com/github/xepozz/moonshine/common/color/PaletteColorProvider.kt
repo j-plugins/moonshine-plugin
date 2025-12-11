@@ -1,7 +1,6 @@
 package com.github.xepozz.moonshine.common.color
 
-import com.github.xepozz.moonshine.MoonshineClasses
-import com.github.xepozz.moonshine.common.php.extendsCached
+import com.github.xepozz.moonshine.common.php.isMoonshineLayout
 import com.intellij.openapi.editor.ElementColorProvider
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.psi.PsiElement
@@ -26,7 +25,7 @@ class PaletteColorProvider : ElementColorProvider {
         val field = classConstantReference.parent as? Field ?: return null
         val phpClass = field.containingClass ?: return null
 
-        if (!phpClass.extendsCached(MoonshineClasses.ABSTRACT_LAYOUT)) return null
+        if (!phpClass.isMoonshineLayout) return null
 
         val pairs = findColors(classReference) ?: return null
 
