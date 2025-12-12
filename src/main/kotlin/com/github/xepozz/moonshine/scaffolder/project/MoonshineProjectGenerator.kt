@@ -1,5 +1,6 @@
 package com.github.xepozz.moonshine.scaffolder.project
 
+import com.github.xepozz.moonshine.MoonshineIcons
 import com.intellij.execution.configurations.PathEnvironmentVariableUtil
 import com.intellij.ide.util.projectWizard.WebProjectTemplate
 import com.intellij.openapi.module.Module
@@ -15,7 +16,7 @@ import com.jetbrains.php.config.interpreters.PhpInterpretersManagerImpl
 
 class MoonshineProjectGenerator : WebProjectTemplate<MoonshineProjectGeneratorSettings>() {
     override fun getName() = "MoonShine"
-
+    override fun getIcon() = MoonshineIcons.MOONSHINE
     override fun generateProject(
         project: Project,
         baseDir: VirtualFile,
