@@ -5,6 +5,7 @@ import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.EditorTextField
+import com.intellij.ui.dsl.builder.AlignX
 import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.Row
 import com.intellij.ui.dsl.listCellRenderer.textListCellRenderer
@@ -36,8 +37,10 @@ fun Row.phpClassComboBox(
     project: Project,
     fqn: String,
     filter: (PhpClass) -> Boolean,
-): Cell<ComboBox<*>> {
+): Cell<ComboBox<String>> {
     val classes = PhpIndex.getInstance(project).findSubclassesIncluding(fqn, filter)
-    return comboBox(classes, textListCellRenderer { it?.fqn })
+    return comboBox(classes.map { it.fqn }, textListCellRenderer { it?:"" })
+        .resizableColumn()
+        .align(AlignX.FILL)
 }
 

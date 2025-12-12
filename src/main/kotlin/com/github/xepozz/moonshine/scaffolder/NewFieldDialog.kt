@@ -7,10 +7,11 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.RowLayout
+import com.intellij.ui.dsl.builder.bindItem
 import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.builder.text
-import com.intellij.ui.dsl.builder.toMutableProperty
+import com.intellij.ui.dsl.builder.toNullableProperty
 import com.jetbrains.php.lang.psi.elements.PhpClass
 import javax.swing.JComponent
 
@@ -46,7 +47,7 @@ class NewFieldDialog(
             row {
                 phpClassComboBox(project, MoonshineClasses.FIELD) { it: PhpClass -> !it.isFinal }
                     .label("Extends")
-                    .bind({ state.extends }, { _, value -> state.extends = value }, state::extends.toMutableProperty())
+                    .bindItem(state::extends.toNullableProperty())
             }.layout(RowLayout.LABEL_ALIGNED)
         }
     }
