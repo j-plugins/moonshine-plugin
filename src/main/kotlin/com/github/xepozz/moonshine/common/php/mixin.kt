@@ -13,7 +13,7 @@ val PhpClass.isMoonshineModel: Boolean
     get() = CachedValuesManager.getCachedValue(this, MoonshineModelProvider(this))
 
 val PhpClass.isMoonshineModelResource: Boolean
-    get() = CachedValuesManager.getCachedValue(this, MoonshineModelProvider(this))
+    get() = CachedValuesManager.getCachedValue(this, MoonshineModelResourceProvider(this))
 
 val PhpClass.isMoonshineLayout: Boolean
-    get() = CachedValuesManager.getCachedValue(this, MoonshineModelProvider(this))
+    get() = CachedValuesManager.getCachedValue(this, MoonshineLayoutProvider(this))
