@@ -6,11 +6,11 @@ import com.github.xepozz.moonshine.common.toSnakeCase
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.Cell
+import com.intellij.ui.dsl.builder.RowLayout
 import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.builder.text
 import com.intellij.ui.dsl.builder.toMutableProperty
-import com.jetbrains.php.PhpIndex
 import com.jetbrains.php.lang.psi.elements.PhpClass
 import javax.swing.JComponent
 
@@ -25,16 +25,6 @@ class NewFieldDialog(
     }
 
     override fun createCenterPanel(): JComponent {
-        val phpIndex = PhpIndex.getInstance(project)
-
-        val fieldClasses = mutableListOf<PhpClass>()
-        phpIndex.processAllSubclasses(MoonshineClasses.FIELD) {
-            if (!it.isFinal) {
-                fieldClasses.add(it)
-            }
-            true
-        }
-
         return panel {
             lateinit var viewField: Cell<JBTextField>
             row {
@@ -47,24 +37,23 @@ class NewFieldDialog(
                         val newText = className.toSnakeCase()
                         viewField.text("admin.fields.$newText")
                     }
-            }
+            }.layout(RowLayout.LABEL_ALIGNED)
             row {
                 viewField = textField()
                     .label("View")
                     .bindText(state::view)
-            }
+            }.layout(RowLayout.LABEL_ALIGNED)
             row {
-                phpClassComboBox(fieldClasses, project)
+                phpClassComboBox(project, MoonshineClasses.FIELD) { it: PhpClass -> !it.isFinal }
                     .label("Extends")
                     .bind({ state.extends }, { _, value -> state.extends = value }, state::extends.toMutableProperty())
-
-            }
+            }.layout(RowLayout.LABEL_ALIGNED)
         }
     }
 
     data class State(
         var className: String = "",
-        var view: String = "",
+        var view: String = "admin.fields.",
         var extends: String = "",
     )
 }

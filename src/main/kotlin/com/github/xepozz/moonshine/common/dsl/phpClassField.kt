@@ -1,5 +1,6 @@
 package com.github.xepozz.moonshine.common.dsl
 
+import com.github.xepozz.moonshine.common.php.findSubclassesIncluding
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
@@ -7,6 +8,7 @@ import com.intellij.ui.EditorTextField
 import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.Row
 import com.intellij.ui.dsl.listCellRenderer.textListCellRenderer
+import com.jetbrains.php.PhpIndex
 import com.jetbrains.php.completion.PhpCompletionUtil
 import com.jetbrains.php.lang.psi.elements.PhpClass
 
@@ -31,11 +33,11 @@ fun Row.phpClassField(
 
 
 fun Row.phpClassComboBox(
-    fieldClasses: Collection<PhpClass>,
     project: Project,
+    fqn: String,
+    filter: (PhpClass) -> Boolean,
 ): Cell<ComboBox<*>> {
-    val textField = EditorTextField("", project, com.intellij.openapi.fileTypes.FileTypes.PLAIN_TEXT)
-
-    return comboBox(fieldClasses, textListCellRenderer({ it?.fqn }))
+    val classes = PhpIndex.getInstance(project).findSubclassesIncluding(fqn, filter)
+    return comboBox(classes, textListCellRenderer { it?.fqn })
 }
 
