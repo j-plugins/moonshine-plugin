@@ -1,18 +1,17 @@
 package com.github.xepozz.moonshine.scaffolder
 
 import com.intellij.openapi.project.Project
-import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.panel
 import javax.swing.JComponent
 
-class NewPageDialog(
+class NewComponentDialog(
     callback: (State) -> Unit,
     project: Project,
     override var state: State = State(),
-) : AbstractNewDialog<NewPageDialog.State>(callback, project) {
+) : AbstractNewDialog<NewComponentDialog.State>(callback, project) {
     init {
-        title = "New Page"
+        title = "New Component"
         init()
     }
 
@@ -20,24 +19,20 @@ class NewPageDialog(
         return panel {
             row {
                 textField()
-                    .label("Model class")
+                    .label("Class name")
                     .focused()
-                    .bindText(state::modelClass)
+                    .bindText(state::className)
             }
             row {
-                checkBox("CRUD")
-                    .bindSelected(state::crud)
-            }
-            row {
-                checkBox("Skip menu")
-                    .bindSelected(state::skipMenu)
+                textField()
+                    .label("View")
+                    .bindText(state::view)
             }
         }
     }
 
     data class State(
-        var modelClass: String = "",
-        var crud: Boolean = true,
-        var skipMenu: Boolean = false,
+        var className: String = "",
+        var view: String = "",
     )
 }

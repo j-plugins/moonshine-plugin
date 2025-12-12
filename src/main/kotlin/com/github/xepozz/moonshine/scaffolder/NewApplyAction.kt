@@ -3,21 +3,17 @@ package com.github.xepozz.moonshine.scaffolder
 import com.github.xepozz.moonshine.utils.PhpCommandUtil
 import com.intellij.openapi.actionSystem.AnActionEvent
 
-class NewResourceAction : AbstractNewAction() {
+class NewApplyAction : AbstractNewAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
 
-        NewResourceDialog({ state ->
+        NewApplyDialog({ state ->
             PhpCommandUtil.invokeCommand(
                 project,
                 listOfNotNull(
                     "artisan",
-                    "moonshine:resource",
-                    state.modelClass,
-//                    "--model",
-//                    "element.fqn",
-                    "--type",
-                    "${state.type}",
+                    "moonshine:apply",
+                    state.className.takeIf { it.isNotEmpty() },
                     "-n",
                 ),
             )

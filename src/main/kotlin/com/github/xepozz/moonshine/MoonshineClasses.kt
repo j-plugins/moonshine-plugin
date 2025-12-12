@@ -6,8 +6,8 @@ object MoonshineClasses {
 
     const val ABSTRACT_LAYOUT = "\\MoonShine\\Crud\\Layouts\\AbstractLayout"
 
-    const val FIELD = "\\MoonShine\\Fields\\Field"
-    const val MODEL_RELATION_FIELD = "\\MoonShine\\Fields\\Relationships\\ModelRelationField"
+    const val FIELD = "\\MoonShine\\UI\\Fields\\Field"
+    const val MODEL_RELATION_FIELD = "\\MoonShine\\Laravel\\Fields\\Relationships\\ModelRelationField"
 
     const val CRUD_RESOURCE = "\\MoonShine\\Laravel\\Resources\\CrudResource"
     const val PAGE = "\\MoonShine\\Pages\\Page"

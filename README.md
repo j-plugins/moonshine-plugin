@@ -8,12 +8,14 @@
 
 [Github](https://github.com/j-plugins/moonshine-plugin) | [Telegram](https://t.me/moonshine_ru) | [Official Website](https://getmoonshine.app/) | [Donation](https://github.com/xepozz/xepozz?tab=readme-ov-file#become-a-sponsor)
 
-## MoonShine
+## MoonShine Plugin — Enhance Your Admin Panel Development Experience
 
-Admin panel for your Laravel projects
+MoonShine plugin is a PhpStorm plugin designed to simplify and speed up development with the MoonShine Admin Panel — a modern, elegant Laravel admin panel.
+The plugin provides intelligent autocompletion, navigation, and contextual hints for MoonShine classes, fields, and components, helping developers focus on building dashboards instead of boilerplate code.
 
-Simple for beginners
-limitless for professionals
+Make your MoonShine development faster, more consistent, and enjoyable — all inside PhpStorm.
+Learn more about MoonShine: https://getmoonshine.app
+Follow MoonShine on GitHub: https://github.com/moonshine-software/moonshine
 
 ## Donation
 

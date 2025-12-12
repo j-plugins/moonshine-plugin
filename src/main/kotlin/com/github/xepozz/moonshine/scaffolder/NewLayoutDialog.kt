@@ -6,13 +6,13 @@ import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.panel
 import javax.swing.JComponent
 
-class NewPageDialog(
+class NewLayoutDialog(
     callback: (State) -> Unit,
     project: Project,
     override var state: State = State(),
-) : AbstractNewDialog<NewPageDialog.State>(callback, project) {
+) : AbstractNewDialog<NewLayoutDialog.State>(callback, project) {
     init {
-        title = "New Page"
+        title = "New Layout"
         init()
     }
 
@@ -20,24 +20,25 @@ class NewPageDialog(
         return panel {
             row {
                 textField()
-                    .label("Model class")
+                    .label("Class name")
                     .focused()
-                    .bindText(state::modelClass)
+                    .bindText(state::className)
             }
             row {
-                checkBox("CRUD")
-                    .bindSelected(state::crud)
+                checkBox("Default")
+                    .bindSelected(state::default)
             }
             row {
-                checkBox("Skip menu")
-                    .bindSelected(state::skipMenu)
+                textField()
+                    .label("Palette")
+                    .bindText(state::palette)
             }
         }
     }
 
     data class State(
-        var modelClass: String = "",
-        var crud: Boolean = true,
-        var skipMenu: Boolean = false,
+        var className: String = "",
+        var default: Boolean = false,
+        var palette: String = "",
     )
 }
