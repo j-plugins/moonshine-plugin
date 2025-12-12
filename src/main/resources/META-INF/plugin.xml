@@ -70,32 +70,32 @@
 
             <action
                     id="moonshine.ApplyNewAction"
-                    class="com.github.xepozz.moonshine.scaffolder.AbstractNewAction"
+                    class="com.github.xepozz.moonshine.scaffolder.NewApplyAction"
                     icon="com.github.xepozz.moonshine.MoonshineIcons.MOONSHINE"
                     text="Apply"/>
             <action
                     id="moonshine.ComponentNewAction"
-                    class="com.github.xepozz.moonshine.scaffolder.AbstractNewAction"
+                    class="com.github.xepozz.moonshine.scaffolder.NewComponentAction"
                     icon="com.github.xepozz.moonshine.MoonshineIcons.MOONSHINE"
                     text="Component"/>
             <action
                     id="moonshine.ControllerNewAction"
-                    class="com.github.xepozz.moonshine.scaffolder.AbstractNewAction"
+                    class="com.github.xepozz.moonshine.scaffolder.NewControllerAction"
                     icon="com.github.xepozz.moonshine.MoonshineIcons.MOONSHINE"
                     text="Controller"/>
             <action
                     id="moonshine.FieldNewAction"
-                    class="com.github.xepozz.moonshine.scaffolder.AbstractNewAction"
+                    class="com.github.xepozz.moonshine.scaffolder.NewFieldAction"
                     icon="com.github.xepozz.moonshine.MoonshineIcons.MOONSHINE"
                     text="Field"/>
             <action
                     id="moonshine.HandlerNewAction"
-                    class="com.github.xepozz.moonshine.scaffolder.AbstractNewAction"
+                    class="com.github.xepozz.moonshine.scaffolder.NewHandlerAction"
                     icon="com.github.xepozz.moonshine.MoonshineIcons.MOONSHINE"
                     text="Handler"/>
             <action
                     id="moonshine.LayoutNewAction"
-                    class="com.github.xepozz.moonshine.scaffolder.AbstractNewAction"
+                    class="com.github.xepozz.moonshine.scaffolder.NewLayoutAction"
                     icon="com.github.xepozz.moonshine.MoonshineIcons.MOONSHINE"
                     text="Layout"/>
             <action
@@ -105,7 +105,7 @@
                     text="Page"/>
             <action
                     id="moonshine.PolicyNewAction"
-                    class="com.github.xepozz.moonshine.scaffolder.AbstractNewAction"
+                    class="com.github.xepozz.moonshine.scaffolder.NewPolicyAction"
                     icon="com.github.xepozz.moonshine.MoonshineIcons.MOONSHINE"
                     text="Policy"/>
             <action
@@ -115,14 +115,19 @@
                     text="Resource"/>
             <action
                     id="moonshine.TypeCastNewAction"
-                    class="com.github.xepozz.moonshine.scaffolder.AbstractNewAction"
+                    class="com.github.xepozz.moonshine.scaffolder.NewTypeCastAction"
                     icon="com.github.xepozz.moonshine.MoonshineIcons.MOONSHINE"
                     text="Type Cast"/>
             <action
                     id="moonshine.UserNewAction"
-                    class="com.github.xepozz.moonshine.scaffolder.AbstractNewAction"
+                    class="com.github.xepozz.moonshine.scaffolder.NewUserAction"
                     icon="com.github.xepozz.moonshine.MoonshineIcons.MOONSHINE"
                     text="User"/>
+            <action
+                    id="moonshine.PublishNewAction"
+                    class="com.github.xepozz.moonshine.scaffolder.NewPublishAction"
+                    icon="com.github.xepozz.moonshine.MoonshineIcons.MOONSHINE"
+                    text="Publish"/>
 
             <add-to-group
                     group-id="PhpNewGroup"
