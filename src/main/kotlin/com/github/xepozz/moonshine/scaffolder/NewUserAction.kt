@@ -22,7 +22,7 @@ class NewUserAction : AbstractNewAction() {
                     "-n",
                 ),
             )
-        }).show()
+        }, project).show()
 
     }
 }

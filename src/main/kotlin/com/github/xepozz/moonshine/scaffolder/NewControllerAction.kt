@@ -17,7 +17,7 @@ class NewControllerAction : AbstractNewAction() {
                     "-n",
                 ),
             )
-        }).show()
+        }, project).show()
 
     }
 }

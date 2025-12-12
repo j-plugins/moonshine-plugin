@@ -17,7 +17,7 @@ class NewApplyAction : AbstractNewAction() {
                     "-n",
                 ),
             )
-        }).show()
+        }, project).show()
 
     }
 }

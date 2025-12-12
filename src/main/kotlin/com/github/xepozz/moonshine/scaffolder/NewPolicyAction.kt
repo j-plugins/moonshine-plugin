@@ -17,7 +17,7 @@ class NewPolicyAction : AbstractNewAction() {
                     "-n",
                 ),
             )
-        }).show()
+        }, project).show()
 
     }
 }

@@ -19,7 +19,7 @@ class NewComponentAction : AbstractNewAction() {
                     "-n",
                 ),
             )
-        }).show()
+        }, project).show()
 
     }
 }

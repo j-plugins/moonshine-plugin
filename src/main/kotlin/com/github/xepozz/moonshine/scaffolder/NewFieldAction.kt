@@ -21,7 +21,7 @@ class NewFieldAction : AbstractNewAction() {
                     "-n",
                 ),
             )
-        }).show()
+        }, project).show()
 
     }
 }

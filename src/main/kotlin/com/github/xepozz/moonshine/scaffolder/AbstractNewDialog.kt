@@ -1,5 +1,6 @@
 package com.github.xepozz.moonshine.scaffolder
 
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.dsl.builder.Align
 import com.intellij.ui.dsl.builder.RightGap
@@ -8,6 +9,7 @@ import javax.swing.JComponent
 
 abstract class AbstractNewDialog<T>(
     val callback: (T) -> Unit,
+    val project: Project,
 ) : DialogWrapper(true) {
     abstract var state: T
 

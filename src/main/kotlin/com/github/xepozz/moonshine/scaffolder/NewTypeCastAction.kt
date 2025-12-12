@@ -17,7 +17,7 @@ class NewTypeCastAction : AbstractNewAction() {
                     "-n",
                 ),
             )
-        }).show()
+        }, project).show()
 
     }
 }

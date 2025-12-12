@@ -21,7 +21,7 @@ class NewResourceAction : AbstractNewAction() {
                     "-n",
                 ),
             )
-        }).show()
+        }, project).show()
 
     }
 }

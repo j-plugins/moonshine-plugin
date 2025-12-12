@@ -17,7 +17,7 @@ class NewPublishAction : AbstractNewAction() {
                     "-n",
                 ),
             )
-        }).show()
+        }, project).show()
 
     }
 }

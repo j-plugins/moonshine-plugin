@@ -20,7 +20,7 @@ class NewLayoutAction : AbstractNewAction() {
                     "-n",
                 ),
             )
-        }).show()
+        }, project).show()
 
     }
 }
