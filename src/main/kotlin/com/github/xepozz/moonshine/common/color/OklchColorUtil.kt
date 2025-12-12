@@ -27,30 +27,31 @@ object OklchColorUtil {
      */
     private val withFunctionPattern = Regex(
         """
-        oklch\s*\(
-            \s*
-            (\d*\.?\d+)%?\s*,?
-            \s*(\d*\.?\d+)\s*,?
-            \s*(\d*\.?\d+)(?:deg)?
-            \s*
-        \)
+        ^oklch\s*\(\s*(\d*\.?\d+)%?,?\s+(\d*\.?\d+),?\s+(\d*\.?\d+)(?:deg)?\)$
         """.trimIndent(),
-        setOf(RegexOption.IGNORE_CASE, RegexOption.COMMENTS)
+        setOf(RegexOption.IGNORE_CASE)
     )
     private val withoutFunctionPattern = Regex(
         """
-        \s*
-        (\d*\.?\d+)%?\s*,?
-        \s*(\d*\.?\d+)\s*,?
-        \s*(\d*\.?\d+)(?:deg)?
-        \s*
+        ^\s*(\d*\.?\d+)%?,?\s+(\d*\.?\d+),?\s+(\d*\.?\d+)(?:deg)?$
         """.trimIndent(),
-        setOf(RegexOption.IGNORE_CASE, RegexOption.COMMENTS)
+        setOf(RegexOption.IGNORE_CASE)
+    )
+    private val hexColorPattern = Regex(
+        """
+        ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$
+        """.trimIndent(),
+        setOf(RegexOption.IGNORE_CASE)
     )
 
-    /**
-     * Parse OKLCH color string and return OklchColor object
-     */
+    fun parseHexColor(hexColor: String): Color? {
+        return try {
+            Color.decode(hexColor)
+        } catch (e: NumberFormatException) {
+            null
+        }
+    }
+
     fun parseOklchColor(colorString: String): OklchColor? {
         val colorString = colorString.trim()
         val matchResult =
@@ -79,12 +80,12 @@ object OklchColorUtil {
         }
     }
 
-    /**
-     * Check if string contains OKLCH color
-     */
     fun isOklchColor(text: String): Boolean {
-        return withFunctionPattern.containsMatchIn(text)
-                || withoutFunctionPattern.containsMatchIn(text)
+        return withFunctionPattern.containsMatchIn(text) || withoutFunctionPattern.containsMatchIn(text)
+    }
+
+    fun isHexColor(text: String): Boolean {
+        return hexColorPattern.containsMatchIn(text)
     }
 
     /**

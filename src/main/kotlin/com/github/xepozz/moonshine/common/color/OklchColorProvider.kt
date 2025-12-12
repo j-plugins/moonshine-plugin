@@ -21,6 +21,11 @@ class OklchColorProvider : ElementColorProvider {
             println("parseOklchColor: $parseOklchColor, text: $text")
             return parseOklchColor?.toRgb()
         }
+        if (OklchColorUtil.isHexColor(text)) {
+            val color = OklchColorUtil.parseHexColor(text)
+
+            return color
+        }
 
         return null
     }
