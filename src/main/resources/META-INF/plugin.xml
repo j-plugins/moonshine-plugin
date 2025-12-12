@@ -22,16 +22,43 @@
         <codeInsight.lineMarkerProvider
                 language="PHP"
                 implementationClass="com.github.xepozz.moonshine.lineMarkers.ModelLineMarkerProvider"/>
+        <colorProvider
+                implementation="com.github.xepozz.moonshine.common.color.OklchColorProvider"/>
+        <colorProvider
+                implementation="com.github.xepozz.moonshine.common.color.PaletteColorProvider"/>
         <intentionAction>
             <language>PHP</language>
             <className>com.github.xepozz.moonshine.intentions.NewResourceIntention</className>
         </intentionAction>
+        <completion.contributor
+                language="PHP"
+                order="first"
+                implementationClass="com.github.xepozz.moonshine.completion.LayoutCompletionContributor"/>
+        <psi.referenceContributor
+                language="PHP"
+                order="first"
+                implementation="com.github.xepozz.moonshine.references.RouteReferenceContributor"/>
 
+        <directoryProjectGenerator
+                implementation="com.github.xepozz.moonshine.scaffolder.project.MoonshineProjectGenerator"/>
+        <moduleBuilder
+                builderClass="com.github.xepozz.moonshine.scaffolder.project.MoonshineModuleBuilder"/>
 
-        <notificationGroup id="MoonShine Debug"
-                           displayType="BALLOON"
-                           key="notification.group.debug.name"/>
+        <notificationGroup
+                id="MoonShine Debug"
+                displayType="BALLOON"
+                key="notification.group.debug.name"/>
+        <backgroundPostStartupActivity
+                implementation="com.github.xepozz.moonshine.listeners.DumpLaravelData"/>
+        <backgroundPostStartupActivity
+                implementation="com.github.xepozz.moonshine.listeners.ActivationListener"/>
     </extensions>
+
+    <extensions defaultExtensionNs="com.jetbrains.php">
+        <composerConfigClient
+                implementation="com.github.xepozz.moonshine.common.config.MoonshineComposerConfig"/>
+    </extensions>
+
     <actions>
         <group
                 id="MoonShine New"

@@ -4,6 +4,8 @@ object MoonshineClasses {
     const val MODEL_RESOURCE = "\\MoonShine\\Laravel\\Resources\\ModelResource"
     const val MODEL = "\\Illuminate\\Database\\Eloquent\\Model"
 
+    const val ABSTRACT_LAYOUT = "\\MoonShine\\Crud\\Layouts\\AbstractLayout"
+
     const val FIELD = "\\MoonShine\\Fields\\Field"
     const val MODEL_RELATION_FIELD = "\\MoonShine\\Fields\\Relationships\\ModelRelationField"
 
@@ -13,4 +15,6 @@ object MoonshineClasses {
     const val INDEX_PAGE = "\\MoonShine\\Laravel\\Pages\\Crud\\IndexPage"
     const val FORM_PAGE = "\\MoonShine\\Laravel\\Pages\\Crud\\FormPage"
     const val DETAIL_PAGE = "\\MoonShine\\Laravel\\Pages\\Crud\\DetailPage"
+
+    const val CRUD_RESOURCE_CONTRACT = "\\MoonShine\\Contracts\\Core\\CrudResourceContract"
 }
