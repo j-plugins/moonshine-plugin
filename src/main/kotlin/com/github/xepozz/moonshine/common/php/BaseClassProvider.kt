@@ -2,7 +2,6 @@ package com.github.xepozz.moonshine.common.php
 
 import com.github.xepozz.moonshine.MoonshineClasses
 import com.intellij.psi.util.CachedValueProvider
-import com.intellij.psi.util.PsiModificationTracker
 import com.jetbrains.php.PhpClassHierarchyUtils
 import com.jetbrains.php.PhpIndex
 import com.jetbrains.php.lang.psi.elements.PhpClass
@@ -20,8 +19,7 @@ abstract class BaseClassProvider(val phpClass: PhpClass, val modelClass: String)
 
         return CachedValueProvider.Result.create(
             result,
-            modelClass,
-            PsiModificationTracker.MODIFICATION_COUNT,
+            phpClass,
         )
     }
 }
